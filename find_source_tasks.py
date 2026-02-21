@@ -1,5 +1,13 @@
 import json
 from random import randint
+from typing import Protocol, runtime_checkable, Any
+
+
+@runtime_checkable
+class TaskSource(Protocol):
+    def get_tasks(self) -> list:
+        """ Возвращает списоко задач"""
+        pass
 
 class RandomTaskGenerate:
     def get_tasks(self) -> list:
@@ -20,11 +28,11 @@ class ReadFromFile:
     def __init__(self, filename="tasks.json"):
         self.filename = filename
 
-    def get_tasks(self):
+    def get_tasks(self) -> list:
         try:
             with open(self.filename) as file: return json.load(file)
 
-        except FileNotFoundError: return "Введите корректное название файла"
+        except FileNotFoundError: raise FileNotFoundError(f"Файл {self.filename} не найден")
 
 
 
@@ -53,5 +61,3 @@ class APISimulate:
 
 
 
-GEN = APISimulate()
-print(GEN.get_tasks())
