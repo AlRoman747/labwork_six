@@ -7,6 +7,9 @@ def main():
         APISimulate
     ]
 
+    Reader = ReadFromFile()
+    print(Reader.get_tasks())
+
     for source in sources:
         print(check_source(source()))
 

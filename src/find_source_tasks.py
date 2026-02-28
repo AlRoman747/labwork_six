@@ -27,7 +27,6 @@ class RandomTaskGenerate:
 class ReadFromFile:
     def __init__(self, filename="tasks.json"):
         self.filename = filename
-
     def get_tasks(self) -> list:
         try:
             with open(self.filename) as file: return json.load(file)
@@ -58,6 +57,5 @@ class APISimulate:
                 }
             })
         return tasks
-
 
 
