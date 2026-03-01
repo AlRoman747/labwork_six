@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 .idea
+.tests/tasks.json
 
 # C extensions
 *.so
