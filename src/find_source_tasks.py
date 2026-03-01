@@ -1,16 +1,19 @@
-from typing import Protocol, runtime_checkable, TypedDict
+from typing import Protocol, runtime_checkable
 
-class Task(TypedDict):
-    id: int
-    payload: str
 
-class API_Task(TypedDict):
+@runtime_checkable
+class Task(Protocol):
     id: int
-    payload: str
+    payload: object
+
+@runtime_checkable
+class API_Task(Protocol):
+    id: int
+    payload: object
 
 
 @runtime_checkable
 class TaskSource(Protocol):
     def get_tasks(self) -> list[Task]:
-        """ Возвращает списоко задач"""
+        """ Возвращает список задач"""
         pass
