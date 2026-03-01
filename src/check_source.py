@@ -1,10 +1,10 @@
-from find_source_tasks import TaskSource, Task
+from find_source_tasks import TaskSource
 
 
 def check_source(source) -> str:
 
     if not isinstance(source, TaskSource):
-        raise TypeError(f"{source.__class__.__name__}: Source does not implement TaskSource")
+        raise TypeError(f"{source.__class__.__name__}: Контракт не соблюдён")
 
     tasks = source.get_tasks()
 
