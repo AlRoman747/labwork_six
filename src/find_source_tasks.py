@@ -4,6 +4,10 @@ class Task(TypedDict):
     id: int
     payload: str
 
+class API_Task(TypedDict):
+    id: int
+    payload: str
+
 
 @runtime_checkable
 class TaskSource(Protocol):

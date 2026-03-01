@@ -1,10 +1,9 @@
-from src.find_source_tasks import Task
+from src.find_source_tasks import API_Task
 from random import randint
 
 
 class APISimulate:
     def __init__(self):
-        self.tasks = []
         self.priority_types = ['low', 'medium', 'high']
         self.data = [
             {"task_id": 748},
@@ -23,9 +22,10 @@ class APISimulate:
             self.data[i].setdefault("priority", self.priority_types[randint(0,2)])
 
 
-    def get_tasks(self) -> list[Task]:
+    def get_tasks(self) -> list[API_Task]:
+        tasks = []
         for item in self.data:
-            self.tasks.append({
+            tasks.append({
                 "id": item["task_id"],
                 "payload": {
                     "text": item["task"],
@@ -33,4 +33,4 @@ class APISimulate:
                     "source": "api"
                 }
             })
-        return self.tasks
+        return tasks
