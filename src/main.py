@@ -1,4 +1,8 @@
-from check_source import *
+from check_source import check_source
+from random_source import RandomTaskGenerate
+from file_source import ReadFromFile
+from api_source import APISimulate
+
 
 def main():
     sources = [
@@ -7,8 +11,6 @@ def main():
         APISimulate
     ]
 
-    Reader = ReadFromFile()
-    print(Reader.get_tasks())
 
     for source in sources:
         print(check_source(source()))
