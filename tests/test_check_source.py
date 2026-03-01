@@ -1,7 +1,6 @@
 import pytest
 from src.check_source import SourceChecker
 from src.random_source import RandomTaskGenerate
-from src.file_source import ReadFromFile
 from src.api_source import APISimulate
 
 class BadTestClass:

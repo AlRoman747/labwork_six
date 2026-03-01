@@ -1,15 +1,11 @@
-from typing import Protocol, runtime_checkable
+from typing import Protocol, runtime_checkable, TypedDict
 
 
-@runtime_checkable
-class Task(Protocol):
+
+class Task(TypedDict):
     id: int
     payload: object
 
-@runtime_checkable
-class API_Task(Protocol):
-    id: int
-    payload: object
 
 
 @runtime_checkable
