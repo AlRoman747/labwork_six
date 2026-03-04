@@ -4,7 +4,7 @@ from random import randint
 
 class APISimulate:
     def __init__(self):
-        self.priority_types = ['low', 'medium', 'high']
+        self.priority_types = ['low', 'medium', 'high'] # Симуляция приоритетов api задач
         self.data = [
             {"task_id": 748},
             {"task_id": 374},
@@ -23,6 +23,7 @@ class APISimulate:
 
 
     def get_tasks(self) -> list[Task]:
+        """Реализация вывода списка задач из api"""
         tasks = []
         for item in self.data:
             tasks.append({

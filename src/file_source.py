@@ -6,6 +6,7 @@ class ReadFromFile:
     def __init__(self, filename="tasks.json"):
         self.filename = filename
     def get_tasks(self)  -> list[Task]:
+        """Реализация вывода списка запросов из файла"""
         try:
             with open(self.filename) as file: return json.load(file)
 

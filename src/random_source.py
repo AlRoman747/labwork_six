@@ -7,7 +7,7 @@ class RandomTaskGenerate:
         self.seed = seed
         self.tasks = {}
     def get_tasks(self) -> list[Task]:
-
+        """Генерация случайных задач по сиду и вывод списка задач"""
         self.tasks.setdefault(self.seed, [])
         if self.tasks[self.seed]:
             return self.tasks[self.seed]

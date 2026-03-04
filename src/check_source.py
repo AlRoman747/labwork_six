@@ -6,6 +6,7 @@ class SourceChecker:
         self.source = source
 
     def check_task(self, task: dict) -> bool:
+        """Проверка соответствия типов задачи"""
         return (
                 isinstance(task, dict)
                 and "id" in task
@@ -14,7 +15,7 @@ class SourceChecker:
         )
 
     def check_source(self) -> str:
-
+        """Проверка соблюдения контракта"""
         if not isinstance(self.source, TaskSource):
             raise TypeError(f"{self.source.__class__.__name__}: Контракт не соблюдён")
 

@@ -1,11 +1,9 @@
 from typing import Protocol, runtime_checkable, TypedDict
 
 
-
 class Task(TypedDict):
     id: int
     payload: object
-
 
 
 @runtime_checkable
