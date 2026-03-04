@@ -6,7 +6,7 @@ class SourceChecker:
         self.source = source
 
     def check_task(self, task: dict) -> bool:
-        """Проверка соответствия типов задачи"""
+        """Проверка соответствия типов задачи """
         return (
                 isinstance(task, dict)
                 and "id" in task
