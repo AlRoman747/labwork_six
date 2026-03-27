@@ -1,7 +1,7 @@
 import pytest
-from src.api_source import APISimulate
-from src.random_source import RandomTaskGenerate
 
+from contract_programming.src import APISimulate
+from contract_programming.src import RandomTaskGenerate
 
 @pytest.fixture
 def api():

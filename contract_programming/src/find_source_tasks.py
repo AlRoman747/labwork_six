@@ -1,9 +1,9 @@
-from typing import Protocol, runtime_checkable, TypedDict
+from typing import Protocol, runtime_checkable, TypedDict, Any
 
 
 class Task(TypedDict):
     id: int
-    payload: object
+    payload: Any
 
 
 @runtime_checkable

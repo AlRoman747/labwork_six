@@ -1,4 +1,4 @@
-from src.file_source import ReadFromFile
+from contract_programming.src import ReadFromFile
 import json
 
 
