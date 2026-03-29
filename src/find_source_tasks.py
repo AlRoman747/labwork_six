@@ -1,23 +1,9 @@
 from typing import Protocol, runtime_checkable, TypedDict, Any
 from datetime import datetime
-from enum import Enum
+from src.labwork_two.priority import Priority
+from src.labwork_two.status import Status
 
 
-
-class Priority(Enum):
-    """fields for priority types"""
-    LOW="low"
-    MEDIUM="medium"
-    HIGH="high"
-
-class Status(Enum):
-    """fields for status types"""
-    OPEN = "open"
-    IN_PROGRESS = "in progress"
-    IN_REVIEW = "in review"
-    TESTING = "testing"
-    BLOCKED = "blocked"
-    DONE = "done"
 
 class TaskFactory:
     """creating a task with calculating the ID and creation time"""
@@ -43,22 +29,45 @@ class TaskFactory:
 class Task:
     """realisation task"""
     def __init__(self, id: int, task_description: str, priority: Priority, status: Status, created_time: datetime, finish_time: datetime):
-        self.id = id
-        self.task_description = task_description
-        self.priority = priority
-        self.status = status
-        self.finish_time = finish_time
-        self.created_time = created_time
-        self.finish_time_ts = self.finish_time.timestamp()
-        self.now_time = datetime.now().timestamp()
+        self.__id = id
+        self.__task_description = task_description
+        self.__priority = priority
+        self.__status = status
+        self._finish_time = finish_time
+        self._created_time = created_time
+        self._finish_time_ts = self._finish_time.timestamp()
 
+    @property
     def deadline_status(self) -> str:
-        if self.now_time > self.finish_time_ts:
+        now = datetime.now().timestamp()
+        """simple calculating task state. Can be upgrade by using status and priority"""
+        if now > self._finish_time_ts:
             return "task is overdue"
-        if self.finish_time_ts < self.now_time + 86400:
+        if self._finish_time_ts < now + 86400:
             return "This is a hot task"
         else:
             return "Nice time to start this task"
+
+
+    @property
+    def id(self) -> str:
+        return f'#{self.__id}'
+
+
+    def description(self) -> str:
+        return self.__task_description
+
+
+    def priority(self) -> str:
+        return self.__priority
+
+
+    def status(self) -> str:
+        return self.__status
+
+    def __str__(self):
+        return f'Task #{self.__id} "{self.__task_description}", status: {self.__status}, priority: {self.__priority}, finish at: {self._finish_time}'
+
 
 @runtime_checkable
 class TaskSource(Protocol):
