@@ -8,7 +8,6 @@ class EnumDescriptor:
     def __init__(self, enum_class):
         self.enum_class = enum_class
 
-
     def __set_name__(self, owner, name):
         self.name = name
 
@@ -21,14 +20,36 @@ class EnumDescriptor:
         try:
             # Проверяем, что value — член enum_class
             enum_value = self.enum_class(value)
-        except ValueError:
+        except Exception:
             raise ValueError(f"{value} not avaliable for {self.enum_class.__name__}")
         setattr(instance, f"_{self.name}", enum_value)
+
+class FinishTimeDescriptor:
+    """Description for manage and validate task finish time."""
+    def __set_name__(self, owner, name):
+        """Save name attribute for work with _finish_time"""
+        self.name = name
+        self.internal_name = f"_{name}"
+
+    def __get__(self, instance, owner):
+        if instance is None:
+            return self
+        # return attribute value
+        return getattr(instance, self.internal_name)
+
+    def __set__(self, instance, value):
+        try:
+            parsed_dt = datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
+            setattr(instance, self.internal_name, parsed_dt)
+        except (ValueError, TypeError):
+            raise ValueError("Finish time must be in format 'YYYY-MM-DD HH:MM:SS'")
+
 
 class Task:
     """realisation task"""
     priority = EnumDescriptor(Priority)
     status = EnumDescriptor(Status)
+    finish_time = FinishTimeDescriptor()
 
     def __init__(self, task_id: int, description: str, priority: Priority, status: Status, finish_time: datetime, created_time: datetime):
         self._id = task_id
@@ -46,19 +67,11 @@ class Task:
     def description(self) -> str:
         return self._description
 
-    def priority(self) -> Priority:
-        return self.priority
-
-    def status(self) -> Status:
-        return self.status
 
     @property
     def created_time(self) -> datetime:
         return self._created_time
 
-
-    def finish_time(self) -> datetime:
-        return self._finish_time
 
     @property
     def deadline_status(self) -> str:
@@ -72,7 +85,7 @@ class Task:
             return "Nice time to start this task"
 
     def __str__(self):
-        return (f"Task {self.id} \"{self.description}, status: {self.status.value}, priority: {self.priority.value}, finish at: {self._finish_time}")
+        return (f'Task {self._id} "{self._description}", status: {self.status.value}, priority: {self.priority.value}, finish at: {self._finish_time}')
 
 
 class TaskFactory:

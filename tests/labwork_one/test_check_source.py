@@ -1,7 +1,7 @@
 import pytest
-from src import SourceChecker
-from src import RandomTaskGenerate
-from src import APISimulate
+from src.check_source import SourceChecker
+from src.labwork_one.random_source import RandomTaskGenerate
+from src.labwork_one.api_source import APISimulate
 
 class BadTestClass:
     def func(self):

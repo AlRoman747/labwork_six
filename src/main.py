@@ -21,9 +21,12 @@ def main():
     factory = TaskFactory()
     task = factory.create("Write lab report", "high", "in progress", "2026-03-29 20:00:00")
 
-    print(task.status)  # Status.IN_PROGRESS
-    task.status = "open"
-    print(task.status)
+
+    task_one = factory.create("test1", "low", "in progress", "2026-01-30 00:00:00")
+    test_data = [task_one.status.value]
+    task_one.finish_time = "2026-11-30 00:00:00"
+    print(task_one.finish_time)
+    print(task_one.deadline_status)
 
 if __name__ == "__main__":
     main()

@@ -1,4 +1,4 @@
-from src import ReadFromFile
+from src.labwork_one.file_source import ReadFromFile
 import json
 
 
