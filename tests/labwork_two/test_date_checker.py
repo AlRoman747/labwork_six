@@ -4,8 +4,9 @@ factory = TaskFactory()
 task_one = factory.create("test1", "low", "in progress", "2026-01-30 00:00:00")
 task_two = factory.create("test2", "low", "in progress", "2036-03-30 00:00:00")
 
-def test_correct_id():
-    """check what deadline work correctly, what if user create task with correct finish time everything good, but if with incorrect..."""
+def test_correct_date_checker():
+    """check what deadline work correctly, what if user create task with correct finish time everything good, but if with incorrect...
+    also check what happened after date changing"""
     test_data = [task_one.deadline_status, task_two.deadline_status]
 
     assert test_data[0] == "task is overdue"
