@@ -93,8 +93,7 @@ class TaskFactory:
     def __init__(self):
         self._counter = 0
 
-    def create(self, description: str, priority: Priority, status: Status,
-               finish_time: str) -> Task:
+    def create(self, description: str, priority: Priority, status: Status, finish_time: str) -> Task:
         self._counter += 1
         try:
             finish_dt = datetime.strptime(finish_time, "%Y-%m-%d %H:%M:%S")

@@ -19,14 +19,26 @@ def main():
         checker = SourceChecker(source())
         print(checker.check_source())
     factory = TaskFactory()
-    task = factory.create("Write lab report", "high", "in progress", "2026-03-29 20:00:00")
+    print("-----------labwork 2-------------------")
+    print(f"Hello. Here you can create task\nIf u wanna stop any time just type exit")
 
-
-    task_one = factory.create("test1", "low", "in progress", "2026-01-30 00:00:00")
-    test_data = [task_one.status.value]
-    task_one.finish_time = "2026-11-30 00:00:00"
-    print(task_one.finish_time)
-    print(task_one.deadline_status)
-
+    while a := input() != 'exit':
+        task_source = []
+        print("Lets start with description your task. Tell me about that u gonna do")
+        task_source.append(input())
+        print("Lets move on and now tell me how important this task for you: choose from: low, medium, high")
+        task_source.append((input()))
+        print("Now tell me what on what level ur task: open, in progress, in review, testing, blocked or done")
+        task_source.append(input())
+        print('And finally in format "%Y-%m-%d %H:%M:%S" tell me when you gonna done ur task')
+        task_source.append(input())
+        try:
+            task = factory.create(task_source[0], task_source[1], task_source[2], task_source[3])
+            print(f"here your task: {str(task)}")
+            print("type y if u wanna check ur deadline status")
+            if input() == "y":
+                print(task.deadline_status)
+        except Exception as e:
+            print("oooops... happened smth bad...", e)
 if __name__ == "__main__":
     main()
