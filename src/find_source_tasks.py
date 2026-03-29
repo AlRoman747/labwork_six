@@ -4,69 +4,91 @@ from src.labwork_two.priority import Priority
 from src.labwork_two.status import Status
 
 
+class EnumDescriptor:
+    def __init__(self, enum_class):
+        self.enum_class = enum_class
+
+
+    def __set_name__(self, owner, name):
+        self.name = name
+
+    def __get__(self, instance, owner):
+        if instance is None:
+            return self
+        return getattr(instance, f"_{self.name}")
+
+    def __set__(self, instance, value):
+        try:
+            # Проверяем, что value — член enum_class
+            enum_value = self.enum_class(value)
+        except ValueError:
+            raise ValueError(f"{value} not avaliable for {self.enum_class.__name__}")
+        setattr(instance, f"_{self.name}", enum_value)
+
+class Task:
+    """realisation task"""
+    priority = EnumDescriptor(Priority)
+    status = EnumDescriptor(Status)
+
+    def __init__(self, task_id: int, description: str, priority: Priority, status: Status, finish_time: datetime, created_time: datetime):
+        self._id = task_id
+        self._description = description
+        self.priority = priority
+        self.status = status
+        self._finish_time = finish_time
+        self._created_time = created_time
+
+    @property
+    def id(self) -> str:
+        return f"#{self._id}"
+
+
+    def description(self) -> str:
+        return self._description
+
+    def priority(self) -> Priority:
+        return self.priority
+
+    def status(self) -> Status:
+        return self.status
+
+    @property
+    def created_time(self) -> datetime:
+        return self._created_time
+
+
+    def finish_time(self) -> datetime:
+        return self._finish_time
+
+    @property
+    def deadline_status(self) -> str:
+        now_ts = datetime.now().timestamp()
+        finish_ts = self._finish_time.timestamp()
+        if now_ts > finish_ts:
+            return "task is overdue"
+        elif finish_ts < now_ts + 86400:
+            return "This is a hot task"
+        else:
+            return "Nice time to start this task"
+
+    def __str__(self):
+        return (f"Task {self.id} \"{self.description}, status: {self.status.value}, priority: {self.priority.value}, finish at: {self._finish_time}")
+
 
 class TaskFactory:
     """creating a task with calculating the ID and creation time"""
     def __init__(self):
         self._counter = 0
-    def create(self, task_description: str, priority: Priority, status: Status, finish_time: str):
+
+    def create(self, description: str, priority: Priority, status: Status,
+               finish_time: str) -> Task:
         self._counter += 1
         try:
-            finish_dt  = datetime.strptime(finish_time, "%Y-%m-%d %H:%M:%S")
+            finish_dt = datetime.strptime(finish_time, "%Y-%m-%d %H:%M:%S")
         except ValueError:
-            return "enter finish time in format YEAR-MONTH-DAY HOUR:MINUTES:SECONDS"
+            raise ValueError("Finish time must be in format 'YYYY-MM-DD HH:MM:SS'")
         created_dt = datetime.now()
-
-        return Task(
-            self._counter,
-            task_description,
-            priority,
-            status,
-            finish_dt,
-            created_dt
-        )
-
-class Task:
-    """realisation task"""
-    def __init__(self, id: int, task_description: str, priority: Priority, status: Status, created_time: datetime, finish_time: datetime):
-        self.__id = id
-        self.__task_description = task_description
-        self.__priority = priority
-        self.__status = status
-        self._finish_time = finish_time
-        self._created_time = created_time
-        self._finish_time_ts = self._finish_time.timestamp()
-
-    @property
-    def deadline_status(self) -> str:
-        now = datetime.now().timestamp()
-        """simple calculating task state. Can be upgrade by using status and priority"""
-        if now > self._finish_time_ts:
-            return "task is overdue"
-        if self._finish_time_ts < now + 86400:
-            return "This is a hot task"
-        else:
-            return "Nice time to start this task"
-
-
-    @property
-    def id(self) -> str:
-        return f'#{self.__id}'
-
-
-    def description(self) -> str:
-        return self.__task_description
-
-
-    def priority(self) -> str:
-        return self.__priority
-
-
-    def status(self) -> str:
-        return self.__status
-
-    def __str__(self):
-        return f'Task #{self.__id} "{self.__task_description}", status: {self.__status}, priority: {self.__priority}, finish at: {self._finish_time}'
+        return Task(self._counter, description, priority, status, finish_dt, created_dt)
 
 
 @runtime_checkable
