@@ -1,4 +1,4 @@
-from contract_programming.src.find_source_tasks import TaskSource
+from src.find_source_tasks import TaskSource
 
 
 class SourceChecker:

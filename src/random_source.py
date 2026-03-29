@@ -1,4 +1,4 @@
-from contract_programming.src.find_source_tasks import Task
+from src.find_source_tasks import Task
 from random import randint
 
 
