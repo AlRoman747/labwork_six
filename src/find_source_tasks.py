@@ -34,7 +34,6 @@ class FinishTimeDescriptor:
     def __get__(self, instance, owner):
         if instance is None:
             return self
-        # return attribute value
         return getattr(instance, self.internal_name)
 
     def __set__(self, instance, value):
@@ -75,6 +74,7 @@ class Task:
 
     @property
     def deadline_status(self) -> str:
+        """calculating deadline status"""
         now_ts = datetime.now().timestamp()
         finish_ts = self._finish_time.timestamp()
         if now_ts > finish_ts:
@@ -85,7 +85,7 @@ class Task:
             return "Nice time to start this task"
 
     def __str__(self):
-        return (f'Task {self._id} "{self._description}", status: {self.status.value}, priority: {self.priority.value}, finish at: {self._finish_time}')
+        return f'Task {self._id} "{self._description}", status: {self.status.value}, priority: {self.priority.value}, finish at: {self._finish_time}'
 
 
 class TaskFactory:
@@ -106,5 +106,5 @@ class TaskFactory:
 @runtime_checkable
 class TaskSource(Protocol):
     def get_tasks(self) -> list[Task]:
-        """ Возвращает список задач"""
+        """ return tasks list"""
         pass
