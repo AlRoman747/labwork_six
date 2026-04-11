@@ -1,4 +1,4 @@
-from src.find_source_tasks import TaskFactory, Task
+from src.labwork_two.find_source_tasks import TaskFactory
 
 factory = TaskFactory()
 task_one = factory.create("test1", "low", "in progress", "2026-01-30 00:00:00")

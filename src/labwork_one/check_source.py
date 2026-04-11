@@ -1,4 +1,4 @@
-from src.find_source_tasks import TaskSource
+from src.labwork_one.TaskProtocol import TaskSource
 
 
 class SourceChecker:
@@ -6,7 +6,7 @@ class SourceChecker:
         self.source = source
 
     def check_task(self, task: dict) -> bool:
-        """Проверка соответствия типов задачи """
+        """Check type task"""
         return (
                 isinstance(task, dict)
                 and "id" in task
@@ -15,18 +15,18 @@ class SourceChecker:
         )
 
     def check_source(self) -> str:
-        """Проверка соблюдения контракта"""
+        """Check Protocol"""
         if not isinstance(self.source, TaskSource):
-            raise TypeError(f"{self.source.__class__.__name__}: Контракт не соблюдён")
+            raise TypeError(f"{self.source.__class__.__name__}: Protocol was not followed")
 
         tasks = self.source.get_tasks()
 
 
         if not isinstance(tasks, list):
-            raise TypeError(f"{tasks.__class__.__name__}: Контракт не соблюдён")
+            raise TypeError(f"{tasks.__class__.__name__}: Protocol was not followed")
 
         for task in tasks:
             if not self.check_task(task):
-                raise TypeError(f"{task.__class__.__name__}: Контракт не соблюдён")
+                raise TypeError(f"{task.__class__.__name__}: Protocol was not followed")
 
-        return f"{self.source.__class__.__name__}: Контракт соблюдён"
+        return f"{self.source.__class__.__name__}: Protocol has been followed"

@@ -1,4 +1,4 @@
-from src.find_source_tasks import Task
+from src.labwork_two.find_source_tasks import Task
 from random import randint
 
 

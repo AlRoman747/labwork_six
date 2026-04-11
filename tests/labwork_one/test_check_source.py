@@ -1,5 +1,5 @@
 import pytest
-from src.check_source import SourceChecker
+from src.labwork_one.check_source import SourceChecker
 from src.labwork_one.random_source import RandomTaskGenerate
 from src.labwork_one.api_source import APISimulate
 
@@ -15,7 +15,7 @@ def test_check_source_valid(source_class):
     checker = SourceChecker(source_class())
     result = checker.check_source()
 
-    assert result == f"{source_class.__name__}: Контракт соблюдён"
+    assert result == f"{source_class.__name__}: Protocol has been followed"
 @pytest.mark.parametrize(
     "bad_class",
     [BadTestClass]

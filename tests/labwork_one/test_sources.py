@@ -1,6 +1,6 @@
 import pytest
-from src import APISimulate
-from src import RandomTaskGenerate
+from src.labwork_one.api_source import APISimulate
+from src.labwork_one.random_source import RandomTaskGenerate
 
 
 @pytest.mark.parametrize(

@@ -1,4 +1,4 @@
-from src.find_source_tasks import Task
+from src.labwork_two.find_source_tasks import Task
 from random import randint
 
 
@@ -23,7 +23,7 @@ class APISimulate:
 
 
     def get_tasks(self) -> list[Task]:
-        """Реализация вывода списка задач из api"""
+        """Realisation printing list of tasks from api"""
         tasks = []
         for item in self.data:
             tasks.append({

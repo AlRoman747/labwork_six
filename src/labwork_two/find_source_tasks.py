@@ -84,7 +84,7 @@ class Task:
         else:
             return "Nice time to start this task"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'Task {self._id} "{self._description}", status: {self.status.value}, priority: {self.priority.value}, finish at: {self._finish_time}'
 
 
@@ -101,10 +101,3 @@ class TaskFactory:
             raise ValueError("Finish time must be in format 'YYYY-MM-DD HH:MM:SS'")
         created_dt = datetime.now()
         return Task(self._counter, description, priority, status, finish_dt, created_dt)
-
-
-@runtime_checkable
-class TaskSource(Protocol):
-    def get_tasks(self) -> list[Task]:
-        """ return tasks list"""
-        pass

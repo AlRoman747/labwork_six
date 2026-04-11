@@ -1,10 +1,8 @@
-from src.check_source import SourceChecker
+from src.labwork_one.check_source import SourceChecker
 from src.labwork_one.random_source import RandomTaskGenerate
 from src.labwork_one.file_source import ReadFromFile
 from src.labwork_one.api_source import APISimulate
-from find_source_tasks import TaskFactory
-from labwork_two.status import Status
-from labwork_two.priority import Priority
+from src.labwork_two.find_source_tasks import TaskFactory
 
 
 def main():
@@ -14,14 +12,17 @@ def main():
         APISimulate
     ]
 
-
+    print("-----------labwork 1-------------------")
     for source in sources:
         checker = SourceChecker(source())
         print(checker.check_source())
-    factory = TaskFactory()
     print("-----------labwork 2-------------------")
+    factory = TaskFactory()
+    task_one = factory.create("test1", "low", "in progress", "2026-01-30 00:00:00")
+    lst = ["statuss"]
+    status_task = lst[0]
+    print(isinstance(getattr(task_one, status_task)))
     print(f"Hello. Here you can create task\nIf u wanna stop any time just type exit")
-
     while a := input() != 'exit':
         task_source = []
         print("Lets start with description your task. Tell me about that u gonna do")
@@ -40,5 +41,7 @@ def main():
                 print(task.deadline_status)
         except Exception as e:
             print("oooops... happened smth bad...", e)
+    print("-----------labwork 3-------------------")
+
 if __name__ == "__main__":
     main()
