@@ -1,15 +1,20 @@
-from typing import Protocol, Any
+from typing import Protocol, Any, Iterator
 
 from src.labwork_two.find_source_tasks import Task
 
 
 class TaskQueue(Protocol):
-    def __iter__(self):
-        """iterations rules to iterate by task queue"""
+    def add(self, task: Task) -> None:
+        """adding tasks in queue"""
         ...
-    '''
-    def filter(self, param: Any) -> Task:
-        """rules for tasks lazy filtration by params what were released in lab work two"""
+
+
+    def __iter__(self) -> Iterator[Task]:
+        """rule for iterating in queue
+        for loop automatically handle StopIteration"""
         ...
-    def __add__(self, other):
-    '''
+
+
+    def lazy_filter(self, param: Any, status: str) -> Iterator[Task]:
+        """filter for any parameter from class Task from labwork two"""
+        ...

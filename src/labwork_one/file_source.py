@@ -10,4 +10,4 @@ class ReadFromFile:
         try:
             with open(self.filename) as file: return json.load(file)
 
-        except FileNotFoundError: raise FileNotFoundError(f"Файл {self.filename} не найден")
+        except FileNotFoundError: raise FileNotFoundError(f"File {self.filename} not founded")

@@ -3,6 +3,8 @@ from src.labwork_one.random_source import RandomTaskGenerate
 from src.labwork_one.file_source import ReadFromFile
 from src.labwork_one.api_source import APISimulate
 from src.labwork_two.find_source_tasks import TaskFactory
+from src.labwork_three.task_queue import TaskQueue
+
 
 
 def main():
@@ -18,10 +20,6 @@ def main():
         print(checker.check_source())
     print("-----------labwork 2-------------------")
     factory = TaskFactory()
-    task_one = factory.create("test1", "low", "in progress", "2026-01-30 00:00:00")
-    lst = ["statuss"]
-    status_task = lst[0]
-    print(isinstance(getattr(task_one, status_task)))
     print(f"Hello. Here you can create task\nIf u wanna stop any time just type exit")
     while a := input() != 'exit':
         task_source = []
@@ -42,6 +40,14 @@ def main():
         except Exception as e:
             print("oooops... happened smth bad...", e)
     print("-----------labwork 3-------------------")
+    task_queue = TaskQueue()
+    task_one = factory.create("test1", "low", "in progress", "2026-03-30 00:00:00")
+    task_two = factory.create("test2", "low", "in progress", "2026-03-30 00:00:00")
+    task_queue.add(task_one)
+    task_queue.add(task_two)
+    print(list(task_queue))
+    for i in task_queue:
+        print(i)
 
 if __name__ == "__main__":
     main()
