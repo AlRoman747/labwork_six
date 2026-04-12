@@ -43,11 +43,15 @@ def main():
     task_queue = TaskQueue()
     task_one = factory.create("test1", "low", "in progress", "2026-03-30 00:00:00")
     task_two = factory.create("test2", "low", "in progress", "2026-03-30 00:00:00")
+    task_three = factory.create("test3", "high", "in progress", "2036-03-30 00:00:00")
     task_queue.add(task_one)
     task_queue.add(task_two)
+    task_queue.add(task_three)
+
+    tasks = [str(i) for i in list(task_queue.lazy_filter("priority", "low"))]
+    print(tasks)
     print(list(task_queue))
     for i in task_queue:
         print(i)
-
 if __name__ == "__main__":
     main()
