@@ -1,25 +1,38 @@
-from datetime import datetime
+import copy
+from typing import Iterable
+import queue
 from typing import Any, Iterator
 
 from src.labwork_two.find_source_tasks import Task
 
 
 class TaskQueue:
-    def __init__(self) -> None:
-        """create list for queue"""
-        self._tasks = list()
+    def __init__(self):
+        """ create an empty queue from collections framework"""
+        self._tasks = queue.Queue()
 
 
     def add(self, task: Task) -> None:
         """adding tasks in queue"""
-        self._tasks.append(task)
+        self._tasks.put(task)
 
+    def pop(self) -> None:
+        """removing tasks from queue"""
+        if not self._tasks:
+            raise IndexError("Queue is empty")
+        return self._tasks.get()
 
-    def __iter__(self) -> Iterator[Task]:
-        """rule for iterating in queue
-        for loop automatically handle StopIteration"""
-        for task in self._tasks:
-            yield task
+    def empty(self):
+        return self._tasks.empty()
+
+    def __len__(self):
+        return self._tasks.qsize()
+
+    def __iter__(self):
+        return self
+    def __next__(self):
+        task = self._tasks.get()
+        self.
 
 
     def lazy_filter(self, param: Any, status: str) -> Iterator[Task]:
