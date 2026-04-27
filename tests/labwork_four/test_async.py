@@ -25,7 +25,7 @@ class SleepHandler:
 
         if task.name == "A":
             # задача A "засыпает"
-            await asyncio.sleep(0.1)
+            await asyncio.sleep(1)
 
         task.log.append(f"{task.name}-end")
 
@@ -86,10 +86,15 @@ async def test_error_collection():
     class FailingHandler:
         async def handle(self, task):
             raise ValueError("fail")
+    class NormalHandler:
+        async def handle(self, task):
+            task.processed = True
 
     async with AsyncTaskExecutor() as executor:
         executor.register_handler(Task, FailingHandler())
+        executor.register_handler(Task, NormalHandler())
         await executor.submit(Task())
         await executor.wait_all()
 
         assert len(executor.errors) == 1
+        assert executor.processed is True
